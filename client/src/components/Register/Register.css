@@ -1,0 +1,20 @@
+.form {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+    text-align: center !important;
+    flex-direction: column;
+}
+
+.register-fields {
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    padding-bottom: 400px;
+}
+
+.register-input {
+    padding: 10px;
+}
