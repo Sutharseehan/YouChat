@@ -1,37 +1,95 @@
-import React, {useState} from "react"
+import React, { useState } from "react"
 import "./Register.css"
-import { TextField, Button } from "@material-ui/core"
+import { TextField, Button } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 
-export default function Register() {
+
+
+const styles = {
+    root: {
+        background: "",
+        color: "white",
+        "& .MuiFormLabel-root": {
+            color: "white"
+        }
+    },
+    input: {
+        color: "white"
+    }
+};
+
+
+function Register(props) {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     async function registerUser() {
-        const res = fetch("http://localhost:3001/api/register", {
+        // MAKE A POST REQUEST TO THE SPECIFIED URL
+        const res = await fetch("http://localhost:1337/api/register", {
             method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+
+            },
             body: JSON.stringify({
                 email,
                 password
             })
-        })
-    }
+            // CONVERT THE RESPONSE BACK TO JSON FORM
+        }).then(t => t.json())
 
+        console.log(res)
+    }
+    const { classes } = props;
 
     return (
         <div className="form">
             <h1>Register</h1>
+
             <form className="register-fields">
+
+                {/* TEXTFIELD FOR EMAIL INPUT */}
                 <div className="register-input">
-                    <TextField fullWidth placeholder="Please enter an email" label="Email" variant="outlined" text-color="white" value={email} onChange={e => setEmail(e.target.value)}/>
+                    <TextField
+                        fullWidth
+                        placeholder="Please enter an email"
+                        label="Email"
+                        variant="standard"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                        className={classes.root}
+                        InputProps={{
+                            className: classes.input
+                        }}
+                    />
                 </div>
+
+                {/* TEXTFIELD FOR PASSWORD INPUT */}
                 <div className="register-input">
-                    <TextField fullWidth placeholder="Please enter a password" label="Password" variant="outlined" color="secondary" value={password} onChange={e => setPassword(e.target.value)} />
+                    <TextField
+                        fullWidth
+                        placeholder="Please enter a password"
+                        label="Password"
+                        variant="standard"
+                        color="primary"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        className={classes.root}
+                        InputProps={{
+                            className: classes.input
+                        }}
+                    />
                 </div>
+
+                {/* REGISTER BUTTON */}
                 <div>
                     <Button color="primary" variant="contained" onClick={registerUser} >Register</Button>
                 </div>
+
             </form>
         </div>
     )
 }
+
+export default withStyles(styles)(Register);
