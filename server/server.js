@@ -36,7 +36,7 @@ app.post("/api/register", async (req, res) => {
     }
 
 
-    res.json({ status: "hello" })
+    res.json({ status: "goodbye" })
 })
 
 app.listen(1337)
