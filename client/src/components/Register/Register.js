@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import "./Register.css"
 import { TextField, Button } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-
+import { apiCall } from "../../utility"
 
 
 const styles = {
@@ -52,19 +52,7 @@ function Register(props) {
 
     async function registerUser() {
         // MAKE A POST REQUEST TO THE SPECIFIED URL
-        const res = await fetch("http://localhost:1337/api/register", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-
-            },
-            body: JSON.stringify({
-                email,
-                password
-            })
-            // CONVERT THE RESPONSE BACK TO JSON FORM
-        }).then(t => t.json())
-
+        const res = await apiCall("/api/register", { email, password })
         console.log(res)
     }
     const { classes } = props;

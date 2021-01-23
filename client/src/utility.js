@@ -1,5 +1,14 @@
-export async function apiCall(url, payload) {
-    const res = await fetch(url, {
+export const IS_DEVELOPMENT = window.location.hostname === 'localhost'
+export const IS_PRODUCTION = !IS_DEVELOPMENT
+
+const API_URL = IS_PRODUCTION ? '' : 'http://localhost:1337'
+
+export async function apiCall(path, payload) {
+
+    // http:localhost:1337 + path ---> development
+    // path ---> production
+
+    const res = await fetch(`${API_URL}${path}`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
@@ -7,4 +16,6 @@ export async function apiCall(url, payload) {
         },
         body: JSON.stringify(payload)
     }).then(t => t.json())
+
+    return res
 }
