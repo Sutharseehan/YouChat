@@ -18,11 +18,37 @@ const styles = {
     }
 };
 
+const styledBy = (property, mapping) => (props) => mapping[props[property]];
+
+const buttonStyles = {
+    root: {
+        background: styledBy('color', {
+            blue: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+            blackish: 'linear-gradient(45deg, #203647 30%, #12232E 90%)'
+        }),
+        borderRadius: 60,
+        border: 0,
+        color: 'white',
+        height: 40,
+        padding: '0 30px',
+        boxShadow: styledBy('color', {
+            blue: '0 3px 5px 2px rgba(33, 203, 243, .3)',
+            blackish: '0 3px 5px 2px #12232E'
+        }),
+    },
+};
+
+const StyledButton = withStyles(buttonStyles)(({ classes, color, ...other }) => (
+    <Button className={classes.root} {...other} />
+));
+
+
 
 function Register(props) {
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [firstButton] = React.useState('blue');
 
     async function registerUser() {
         // MAKE A POST REQUEST TO THE SPECIFIED URL
@@ -83,8 +109,8 @@ function Register(props) {
                 </div>
 
                 {/* REGISTER BUTTON */}
-                <div>
-                    <Button color="primary" variant="contained" onClick={registerUser} >Register</Button>
+                <div className="column">
+                    <StyledButton color={firstButton} variant="contained" onClick={registerUser} >Register</StyledButton>
                 </div>
 
             </form>
