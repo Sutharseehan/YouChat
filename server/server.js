@@ -1,9 +1,10 @@
-const express = require("express")
-const bodyParser = require("body-parser")
-const cors = require("cors")
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const User = require("./models/user");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const setupWebSocketServer = require("./websocket")
 
 const app = express();
 
@@ -63,3 +64,4 @@ app.post("/api/login", async (req, res) => {
 })
 
 app.listen(1337)
+setupWebSocketServer()
