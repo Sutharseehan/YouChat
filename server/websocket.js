@@ -1,7 +1,7 @@
 const WebSocket = require("ws")
-const { processMessage } = require("./utilities")
+const processMessage = require("./utilities")
 
-export default function setupWebSocketServer() {
+function setupWebSocketServer() {
     const wss = new WebSocket.Server({
         port: 1338
     })
@@ -10,9 +10,19 @@ export default function setupWebSocketServer() {
         // a single client has joined
 
         ws.on("message", function incoming(payload) {
-            const message = processMessage(message)
+            const message = processMessage(payload)
+
+            if (!message) {
+                // corrupted message from client
+                // ignore
+                return
+            }
+
+            ws.send(JSON.stringify(message))
         })
 
         ws.send(":something")
     })
 }
+
+module.exports = setupWebSocketServer

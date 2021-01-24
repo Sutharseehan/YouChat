@@ -3,6 +3,7 @@ import "./Login.css"
 import { TextField, Button } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { apiCall } from "../../utility"
+import { useHistory } from "react-router-dom";
 
 const styles = {
     root: {
@@ -46,6 +47,8 @@ function Login(props) {
     const [password, setPassword] = useState('')
     const [firstButton] = React.useState('blue');
 
+    const history = useHistory();
+
     async function loginUser() {
         // MAKE A POST REQUEST TO THE SPECIFIED URL
         const res = await apiCall('/api/login', { email, password })
@@ -53,6 +56,7 @@ function Login(props) {
         if (res.status === "ok") {
             localStorage.setItem("token", res.data)
             alert("You are logged in")
+            history.push("/chat")
         } else {
             alert(res.error)
         }
