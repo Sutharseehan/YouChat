@@ -18,10 +18,8 @@ function setupWebSocketServer() {
                 return
             }
 
-            ws.send(JSON.stringify(message))
+            ws.send(JSON.stringify({ ...message, user: 'self', intent: "chat" }))
         })
-
-        ws.send(":something")
     })
 }
 
