@@ -21,5 +21,11 @@
 
 body {
     color: white;
-    background-color: #2B547E
+    background-color: #283747
+    /* color: black;
+    background-color: white */
+}
+
+.title{
+    z-index: 101;
 }

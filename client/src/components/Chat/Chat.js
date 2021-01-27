@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import { Button, TextField } from "@material-ui/core"
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import SendIcon from '@material-ui/icons/Send';
@@ -9,6 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core'
 import { white } from 'material-ui-colors'
+
 
 const whiteTheme = createMuiTheme({ palette: { primary: white } })
 
@@ -46,8 +47,10 @@ const useMessageStyles = makeStyles((theme) => ({
 }));
 
 const StyledButton = withStyles(styles)(({ classes, color, ...other }) => (
-    <Button className={classes.root} {...other} />
+    <Button className={classes.root} {...other} type="submit" />
 ));
+
+
 
 function processMessage(payload) {
     try {
@@ -66,20 +69,25 @@ export default function Chat() {
 
     const messageClasses = useMessageStyles();
 
-
     function sendMessage() {
         if (wsRef?.readyState !== WebSocket.OPEN) {
             // websocket not connected
             return
         }
-        wsRef.send(JSON.stringify({ message: chatMessage }))
+        wsRef.send(JSON.stringify({ message: chatMessage, intent: "chat" }))
         setChatMessage("")
     }
 
+    function keyPress(e) {
+        if (e.keyCode === 13) {
+            sendMessage();
+        }
+    }
+
     useEffect(() => {
-        const ws = new WebSocket("ws://localhost:1338")
+        const ws = new WebSocket("ws://localhost:1338/" + localStorage.getItem("token"))
         ws.addEventListener("open", () => {
-            ws.send(JSON.stringify({ status: "ok" }))
+            // ws.send(JSON.stringify({ status: "ok" }))
         }, { once: true })
 
         ws.addEventListener('message', (event) => {
@@ -105,45 +113,65 @@ export default function Chat() {
         }
     }, [])
 
+
+
+
+    const messagesEndRef = useRef(null)
+
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    }
+
+    useEffect(() => {
+        scrollToBottom()
+    }, []);
+
+
     return (
-        <div className="chat-background" style={{ textAlign: "center" }}>
-            <h1>Chat Page</h1>
-
-            <div style={{ textAlign: "center" }}>{chatMessages.map((message, index) => {
-                return (
-                    <MuiThemeProvider theme={whiteTheme}>
-                        <ListItem alignItems="flex-start">
-                            <ListItemAvatar>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                            </ListItemAvatar>
-                            <ListItemText
-                                primary={message.user}
-                                secondary={
-                                    <React.Fragment>
-                                        <Typography
-                                            component="span"
-                                            variant="body2"
-                                            className={messageClasses.inline}
-                                            color="textPrimary"
-                                        >
-                                        </Typography>
-                                        {message.message}
-                                    </React.Fragment>
-                                }
-                            />
-                        </ListItem>
-                    </MuiThemeProvider>
+        <div>
+            <div style={{ zIndex: "100" }}>
+                <h1 style={{ position: "fixed", backgroundColor: "#283747" }}>YouChat Room</h1>
+            </div>
+            <div className="chat-background" style={{ textAlign: "center", paddingTop: "100px", zIndex: "99" }}>
 
 
+                <div style={{ textAlign: "center" }}>{chatMessages.map((message, index) => {
+                    return (
+                        <MuiThemeProvider theme={whiteTheme}>
+                            <ListItem alignItems="flex-start">
+                                <ListItemAvatar>
+                                    <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+                                </ListItemAvatar>
+                                <ListItemText
+                                    primary={message.user}
+                                    secondary={
+                                        <React.Fragment>
+                                            <Typography
+                                                component="span"
+                                                variant="body2"
+                                                className={messageClasses.inline}
+                                                color="textPrimary"
+                                            >
+                                            </Typography>
+                                            {message.message}
+                                        </React.Fragment>
+                                    }
+                                />
+                            </ListItem>
+                        </MuiThemeProvider>
 
-                )
-            })}</div>
 
-            <TextField onChange={e => setChatMessage(e.target.value)} value={chatMessage} multiline rows={1} variant="outlined" color="primary" />
 
-            <StyledButton color={Button} variant="contained" onClick={sendMessage}>
-                <SendIcon />
-            </StyledButton>
+                    )
+                })}</div>
+
+                <div style={{ padding: "10px", position: "fixed", bottom: "0px", width: "100%", marginBottom: "-70px" }} ref={messagesEndRef}>
+                    <TextField onChange={e => setChatMessage(e.target.value)} value={chatMessage} multiline rows={1} variant="standard" color="primary" onKeyDown={keyPress} style={{ width: 500 }} />
+                    <StyledButton color={Button} variant="contained" onClick={sendMessage} style={{ marginLeft: "50px", marginBottom: "100px" }}>
+                        <SendIcon />
+                    </StyledButton>
+                </div>
+            </div>
         </div>
     )
 }
