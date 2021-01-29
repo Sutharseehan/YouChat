@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from "react"
+import { useHistory } from "react-router-dom";
 import { Button, TextField } from "@material-ui/core"
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import SendIcon from '@material-ui/icons/Send';
@@ -66,8 +67,9 @@ export default function Chat() {
     const [chatMessage, setChatMessage] = useState('')
     const [chatMessages, setChatMessages] = useState([])
     const [wsRef, setWSRef] = useState(null)
-
     const messageClasses = useMessageStyles();
+
+    const history = useHistory(0);
 
     function sendMessage() {
         if (wsRef?.readyState !== WebSocket.OPEN) {
@@ -89,6 +91,11 @@ export default function Chat() {
         ws.addEventListener("open", () => {
             // ws.send(JSON.stringify({ status: "ok" }))
         }, { once: true })
+
+        ws.addEventListener("error", () => {
+            alert("Please login first")
+            history.replace("/login")
+        })
 
         ws.addEventListener('message', (event) => {
             const data = event.data
@@ -130,7 +137,7 @@ export default function Chat() {
     return (
         <div>
             <div style={{ zIndex: "100" }}>
-                <h1 style={{ position: "fixed", backgroundColor: "#283747" }}>YouChat Room</h1>
+                <h1 style={{ textAlign: "center", backgroundColor: "#283747" }}>YouChat Room</h1>
             </div>
             <div className="chat-background" style={{ textAlign: "center", paddingTop: "100px", zIndex: "99" }}>
 
@@ -166,7 +173,7 @@ export default function Chat() {
                 })}</div>
 
                 <div style={{ padding: "10px", position: "fixed", bottom: "0px", width: "100%", marginBottom: "-70px" }} ref={messagesEndRef}>
-                    <TextField onChange={e => setChatMessage(e.target.value)} value={chatMessage} multiline rows={1} variant="standard" color="primary" onKeyDown={keyPress} style={{ width: 500 }} />
+                    <TextField onChange={e => setChatMessage(e.target.value)} value={chatMessage} multiline variant="standard" color="primary" onKeyDown={keyPress} style={{ width: 500 }} />
                     <StyledButton color={Button} variant="contained" onClick={sendMessage} style={{ marginLeft: "50px", marginBottom: "100px" }}>
                         <SendIcon />
                     </StyledButton>
