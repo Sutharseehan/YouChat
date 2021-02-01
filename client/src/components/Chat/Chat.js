@@ -89,7 +89,10 @@ export default function Chat() {
     useEffect(() => {
         const ws = new WebSocket("ws://localhost:1338/" + localStorage.getItem("token"))
         ws.addEventListener("open", () => {
-            // ws.send(JSON.stringify({ status: "ok" }))
+            ws.send(JSON.stringify({
+                intent: "old-messages",
+                count: 10
+            }))
         }, { once: true })
 
         ws.addEventListener("error", () => {
@@ -110,6 +113,13 @@ export default function Chat() {
                 setChatMessages(oldMessages => {
                     return [...oldMessages, message]
                 })
+            } else if (message.intent === "old-messages") {
+                setChatMessages(message.data.map(item => {
+                    return {
+                        user: item.email,
+                        message: item.message
+                    }
+                }).reverse())
             }
         })
 

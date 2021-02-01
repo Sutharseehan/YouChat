@@ -20,10 +20,10 @@
 }
 
 body {
-    color: white;
-    background-color: #283747
-    /* color: black;
-    background-color: white */
+    /* color: white;
+    background-color: #283747 */
+    color: black;
+    background-color: white
 }
 
 .title{
