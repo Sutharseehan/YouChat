@@ -8,8 +8,10 @@
     "@material-ui/icons": "^4.11.2",
     "@types/express": "^4.17.11",
     "babel": "^6.23.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.14",
     "uuid": "^8.3.2",
     "ws": "^7.4.2"
   },

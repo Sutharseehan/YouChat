@@ -41,7 +41,7 @@ export default function Home() {
                 <header className="App-header">
 
                     <div>
-                        <h1 className="title">Simple Chat Room App</h1>
+                        <h1 className="title">YouChat</h1>
                     </div>
 
                     <div>
