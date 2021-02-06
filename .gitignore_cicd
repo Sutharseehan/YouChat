@@ -1,1 +1,8 @@
-node_modules/
+*
+!client/
+!server/
+!server/build
+!server/build/**
+!server/package*
+!client/build
+!client/build/**
