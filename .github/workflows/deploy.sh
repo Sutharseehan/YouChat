@@ -13,7 +13,7 @@ git commit -m "Deploying"
 git remote add production ssh://$user@$AWS_HOST/~/webapp
 git push --force production main
 
-ssh $user@$AWS_HOST "cd ~/webapp && \
-pm2 kill
-NODE_ENV=production pm2 start /home/ubuntu/webapp/server/build/server.js
-exit"
+# ssh $user@$AWS_HOST "cd ~/webapp && \
+# pm2 kill
+# NODE_ENV=production pm2 start /home/ubuntu/webapp/server/build/server.js
+# exit"
