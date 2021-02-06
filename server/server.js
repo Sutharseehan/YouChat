@@ -36,7 +36,7 @@ if (process.env.NODE_ENV !== "production") {
 app.use(bodyParser.json())
 
 app.get("/", (req, res) => {
-    res.sendFile('')
+    res.send('OK')
 })
 
 app.post("/api/register", async (req, res) => {
@@ -80,7 +80,7 @@ app.post("/api/login", async (req, res) => {
 
 })
 
-app.listen(1337)
+app.listen(5000)
 
 webSocketServerFile.setupWebSocketServer();
 webSocketServerFile.setupWebSocketServerThing();

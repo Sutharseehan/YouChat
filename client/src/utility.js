@@ -1,12 +1,9 @@
 export const IS_DEVELOPMENT = window.location.hostname === 'localhost'
 export const IS_PRODUCTION = !IS_DEVELOPMENT
 
-const API_URL = IS_PRODUCTION ? '' : 'http://localhost:1337'
+const API_URL = IS_PRODUCTION ? '' : 'http://localhost:5000'
 
 export async function apiCall(path, payload) {
-
-    // http:localhost:1337 + path ---> development
-    // path ---> production
 
     const res = await fetch(`${API_URL}${path}`, {
         method: "POST",
