@@ -2,3 +2,5 @@
 !server/build
 !server/build/**
 !server/package*
+!client/build
+!client/build/**

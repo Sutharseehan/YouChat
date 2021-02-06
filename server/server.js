@@ -10,6 +10,22 @@ const utilities = require("./utilities")
 const app = express();
 
 
+// const PRODUCTION = process.env.NODE_ENV === 'production'
+
+// if (PRODUCTION) {
+// 	app.use(express.static('/home/ubuntu/webapp/client/build'))
+// 	mongoose.connect('mongodb://localhost:27017/codedamn-live')
+// } else {
+// 	mongoose.connect(
+// 		'mongodb://admin:0O3lP2MRRmIVZ2WPlUaOPvIiNVDpZZh0aDBisdB2nQtPXB9Ao2oTgRMvG1F4Z6ayDcbj0W0wdkMh4tO25TF7XO7Y@localhost:27017/codedamn-live?authSource=admin'
+// 	)
+// }
+
+
+
+
+
+
 
 mongoose.connect("mongodb://localhost:27017/groupchatapp", { useNewUrlParser: true, useUnifiedTopology: true })
 
