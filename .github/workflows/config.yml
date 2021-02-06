@@ -18,7 +18,9 @@ jobs:
               run: |
                   cd client
                   npm ci
-                  npm run build
+                  npm start
+                  npm build
+                  npm test
             - name: Build Server
               env:
                   NODE_ENV: development
