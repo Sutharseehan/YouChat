@@ -12,6 +12,13 @@ jobs:
             - uses: actions/setup-node@v1
               with:
                   node-version: '14.8.0'
+              - name: Build Client
+              env:
+                  NODE_ENV: development
+              run: |
+                  cd client
+                  npm ci
+                  npm start
             - name: Build Server
               env:
                   NODE_ENV: development
@@ -19,13 +26,6 @@ jobs:
                   cd server
                   npm ci
                   tsc
-            - name: Build Client
-              env:
-                  NODE_ENV: development
-              run: |
-                  cd client
-                  npm ci
-                  npm start
             - name: Deploy on server
               env:
                   DEPLOYMENT_KEY_B64: ${{ secrets.DEPLOYMENT_KEY_B64 }}
