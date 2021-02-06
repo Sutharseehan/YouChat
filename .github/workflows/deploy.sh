@@ -11,7 +11,7 @@ git init .
 git add .
 git commit -m "Deploying"
 git remote add production ssh://$user@$AWS_HOST/~/webapp
-git push --force production main
+git push origin master
 
 # ssh $user@$AWS_HOST "cd ~/webapp && \
 # pm2 kill
