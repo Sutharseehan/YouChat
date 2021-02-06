@@ -1,7 +1,7 @@
 name: CI deploy
 on:
     push:
-        branches: [master]
+        branches: [main]
 env:
     AWS_HOST: 3.138.121.229
 jobs:
