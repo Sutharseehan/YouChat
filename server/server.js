@@ -14,7 +14,8 @@ const app = express();
 
 // if (PRODUCTION) {
 // 	app.use(express.static('/home/ubuntu/webapp/client/build'))
-	mongoose.connect("mongodb://localhost:27017/groupchatapp", { useNewUrlParser: true, useUnifiedTopology: true })
+    // mongoose.connect("mongodb://localhost:27017/groupchatapp", { useNewUrlParser: true, useUnifiedTopology: true })
+    mongoose.connect("mongodb+srv://Sutharseehan:sutha1606@groupchatapplication.cbnsq.mongodb.net/<dbname>?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
 
 // } else {
 // 	mongoose.connect(
