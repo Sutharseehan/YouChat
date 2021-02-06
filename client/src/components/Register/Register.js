@@ -53,10 +53,10 @@ function Register(props) {
         // MAKE A POST REQUEST TO THE SPECIFIED URL
         const res = await apiCall("/api/register", { email, password })
         console.log(res)
-        if (res.status === "ok") {
-            alert("Login Successful")
-            window.location.href = "http://localhost:3001/login";
-        }
+        // if (res.status === "ok") {
+        //     alert("Login Successful")
+        //     window.location.href = "http://localhost:3001/login";
+        // }
     }
     const { classes } = props;
 

@@ -3,6 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import "./Home.css";
+import ForumRoundedIcon from '@material-ui/icons/ForumRounded';
 
 const styledBy = (property, mapping) => (props) => mapping[props[property]];
 
@@ -41,11 +42,11 @@ export default function Home() {
                 <header className="App-header">
 
                     <div>
-                        <h1 className="title">YouChat</h1>
+                        <h1 className="title" style={{ fontFamily: "'Oswald', sans-serif", fontSize: "80px" }}><ForumRoundedIcon style={{ fontSize: "60px" }} /> YouChat</h1>
                     </div>
 
                     <div>
-                        <h4 className="title">Startup a simple chat room!</h4>
+                        <h4 className="title" style={{ fontFamily: "'Oswald', sans-serif", fontSize: "20px", textShadow: "2px 2px black" }}>Login or register to join the chat room!</h4>
                     </div>
 
                     <div className="half-grid">

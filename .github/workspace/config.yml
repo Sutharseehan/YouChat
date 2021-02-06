@@ -1,0 +1,41 @@
+name: CI deploy
+on:
+  push:
+    branches: [master]
+env:
+  AWS_HOST: 3.138.121.229
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: "14.8.0"
+      - name: Build Server
+        env:
+          NODE_ENV: development
+        run: |
+          cd server
+          yarn install --frozen-lockfile
+          tsc
+      - name: Build Client
+        env:
+          NODE_ENV: development
+        run: |
+          cd client
+          yarn install --frozen-lockfile
+          yarn build
+      - name: Deploy on server
+        env:
+          DEPLOYMENT_KEY_B64: ${{ secrets.DEPLOYMENT_KEY_B64 }}
+        run: |
+          mkdir ~/.ssh;
+          touch ~/.ssh/known_hosts;
+          ssh-keyscan $AWS_HOST >> ~/.ssh/known_hosts;
+          echo $DEPLOYMENT_KEY_B64 | base64 -d > ~/.ssh/id_rsa;
+          chmod 644 ~/.ssh/known_hosts;
+          chmod 600 ~/.ssh/id_rsa;
+          chmod 0755 ./.github/workflows/deploy.sh;
+          ./.github/workflows/deploy.sh;
+          rm -rf ~/.ssh;

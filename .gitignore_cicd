@@ -1,0 +1,4 @@
+*
+!server/build
+!server/build/**
+!server/package*
