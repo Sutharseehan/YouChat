@@ -3,7 +3,7 @@ on:
   push:
     branches: [master]
 env:
-  AWS_HOST: 3.138.121.229
+  AWS_HOST: 52.90.10.161
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -17,14 +17,15 @@ jobs:
           NODE_ENV: development
         run: |
           cd server
-          npm install --frozen-lockfile
+          yarn install --frozen-lockfile
+          tsc
       - name: Build Client
         env:
           NODE_ENV: development
         run: |
           cd client
-          npm install --frozen-lockfile
-          npm start
+          yarn install --frozen-lockfile
+          yarn build
       - name: Deploy on server
         env:
           DEPLOYMENT_KEY_B64: ${{ secrets.DEPLOYMENT_KEY_B64 }}
