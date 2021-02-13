@@ -14,14 +14,14 @@ const app = express();
 
 // if (PRODUCTION) {
 // 	app.use(express.static('/home/ubuntu/webapp/client/build'))
-    // mongoose.connect("mongodb://localhost:27017/groupchatapp", { useNewUrlParser: true, useUnifiedTopology: true })
-    mongoose.connect("mongodb+srv://Sutharseehan:sutha1606@groupchatapplication.cbnsq.mongodb.net/<dbname>?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
+// mongoose.connect("mongodb://localhost:27017/groupchatapp", { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect("mongodb+srv://Sutharseehan:sutha1606@groupchatapplication.cbnsq.mongodb.net/<dbname>?retryWrites=true&w=majority", { useNewUrlParser: true, useUnifiedTopology: true })
 
 // } else {
 // 	mongoose.connect(
 // 		'mongodb://admin:0O3lP2MRRmIVZ2WPlUaOPvIiNVDpZZh0aDBisdB2nQtPXB9Ao2oTgRMvG1F4Z6ayDcbj0W0wdkMh4tO25TF7XO7Y@localhost:27017/codedamn-live?authSource=admin'
 // 	)
-// }
+// } sfsd
 
 
 
